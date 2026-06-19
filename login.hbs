@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Effortless College Journey</title>
+  <link rel="stylesheet" href="https://codepen.io/GreenSock/pen/xxmzBrw.css">
+  <!-- GSAP & ScrollTrigger CDN 
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+-->
+  <style>
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.wrapper,
+.content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.content {
+  overflow-x: hidden;
+}
+
+.content .section {
+  width: 100%;
+  height: 100vh;
+}
+
+.content .section.hero {
+  background-image: url(https://images.unsplash.com/photo-1589848315097-ba7b903cc1cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  perspective: 500px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #080d13;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  box-shadow: 0 2px 16px #00fffc33;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.7rem 0;
+}
+
+nav a {
+  color: #00fffc;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover,
+nav a:focus {
+  background: #00fffc33;
+  color: #fff;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+}
+
+.glass {
+  background: rgba(20, 20, 20, 0.65);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1.5px solid rgba(0,255,252,0.18);
+  color: #fff;
+  max-width: 700px;
+  width: 90%;
+  padding: 2.5rem 2rem;
+  margin: 2rem auto 0 auto;
+  transition: box-shadow 0.3s;
+}
+
+.glass:hover {
+  box-shadow: 0 12px 40px 0 rgba(0,255,252,0.25);
+}
+
+h2 {
+  color: #00fffc;
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 12px #00fffc88, 0 0 2px #fff;
+  letter-spacing: 1px;
+}
+
+ul.features-list {
+  padding-left: 1.5rem;
+}
+
+.contact-form,
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.contact-form input,
+.contact-form textarea,
+.login-form input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #00fffc44;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  margin-top: 0.3rem;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.login-form input:focus {
+  border: 1.5px solid #00fffc;
+  box-shadow: 0 0 8px #00fffc88;
+}
+
+.contact-form button,
+.login-form button[type="submit"] {
+  width: 100%;
+  padding: 0.8rem 0;
+  background: linear-gradient(90deg, #00fffc 0%, #26d0ce 100%);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 10px #00fffc44;
+  transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.contact-form button:hover,
+.login-form button[type="submit"]:hover {
+  background: linear-gradient(90deg, #26d0ce 0%, #00fffc 100%);
+  color: #fff;
+  box-shadow: 0 4px 20px #00fffc99;
+}
+
+.login-form .form-footer {
+  margin-top: 1.2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.login-form .form-footer a {
+  color: #00fffc;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.login-form .form-footer a:hover {
+  color: #26d0ce;
+}
+
+.image-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  perspective: 500px;
+  overflow: hidden;
+  pointer-events: none;
+  /* Ensures image doesn't block section content */
+}
+
+.image-container img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+  will-change: transform;
+  transition: filter 0.3s;
+  filter: brightness(0.6) blur(2px);
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  nav ul {
+    gap: 1rem;
+    font-size: 1rem;
+  }
+
+  .glass {
+    max-width: 98vw;
+    margin: 1rem 0.5rem;
+  }
+
+  .section {
+    padding: 2rem 0.5rem;
+  }
+
+  .image-container img {
+    height: 60vh;
+  }
+
+  .image-container {
+    height: 60vh;
+  }
+}
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#intro">Home</a></li>
+      <li><a href="#features">Key Features</a></li>
+      <li><a href="#founder">About Founder</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#login">Login</a></li>
+    </ul>
+  </nav>
+  <div class="wrapper">
+    <div class="content">
+      <section class="section hero"></section>
+      <!-- Intro Section -->
+      <section id="intro" class="section">
+        <div class="glass">
+          <h2>Welcome to Effortless College Journey</h2>
+          <p>
+            Are you feeling overwhelmed by the college application process? Don’t worry—we’re here to make it simple, stress-free, and successful! Our platform is dedicated to guiding you every step of the way, from researching the perfect colleges to submitting your applications and preparing for campus life.<br><br>
+            Whether you need help choosing the right course, crafting a standout application, finding scholarships, or navigating admissions interviews, our expert resources and personalized support are designed to make your college journey smooth and effortless.<br><br>
+            Join us and discover how easy and enjoyable your path to college can be! Let’s turn your dreams into reality, together.
+          </p>
+        </div>
+      </section>
+      <!-- Key Features Section -->
+      <section id="features" class="section">
+        <div class="glass">
+          <h2>Key Features</h2>
+          <ul class="features-list">
+            <li>Personalized college and course recommendations</li>
+            <li>Step-by-step application guidance</li>
+            <li>Scholarship and financial aid discovery</li>
+            <li>Mock interviews & resume building tools</li>
+            <li>Expert advice and real student stories</li>
+            <li>Secure document management</li>
+          </ul>
+        </div>
+      </section>
+      <!-- About Founder Section -->
+      <section id="founder" class="section">
+        <div class="glass">
+          <h2>About the Founder</h2>
+          <p>
+            Our founder, [Your Name], is passionate about making higher education accessible and stress-free for everyone. With years of experience in education consulting and a deep understanding of student needs, [Your Name] created this platform to empower students and families to make informed decisions and achieve their academic dreams.
+          </p>
+        </div>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <div class="glass">
+          <h2>Contact Us</h2>
+          <p>
+            Have questions or need personalized guidance? Reach out—we’re here to help!
+          </p>
+          <form class="contact-form" action="#" method="post">
+            <div class="form-group">
+              <label for="contact-name">Name</label>
+              <input type="text" id="contact-name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+      <!-- Login Section -->
+      <section id="login" class="section">
+        <div class="glass">
+          <h2>Login</h2>
+          <form class="login-form" action="/login" method="post">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div class="form-footer">
+              Don't have an account? <a href="/signup">Sign Up</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+    <!-- Pinned, Zooming Image -->
+    <div class="image-container">
+    <img src="https://assets-global.website-files.com/63ec206c5542613e2e5aa784/643312a6bc4ac122fc4e3afa_main%20home.webp" alt="image"></div>
+  </div>
+
+
+
+
+
+  
+
+
+
+<!-- GSAP & ScrollTrigger CDN -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener("load", () => {
+    // Pin and zoom the image as you scroll the wrapper
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".wrapper",
+        start: "top top",
+        end: "+=200%",
+        pin: ".image-container",
+        scrub: true
+        // markers: true // Uncomment for debug
+      }
+    })
+    .to(".image-container img", {
+      scale: 1.5,
+      z: 350,
+      transformOrigin: "center center",
+      ease: "power1.inOut"
+    });
+
+    // Fade-in sections on scroll
+    document.querySelectorAll('.section').forEach(section => {
+      gsap.from(section, {
+        autoAlpha: 0,
+        y: 60,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+  });
+</script>
+<script>
+  console.clear();
+gsap.registerPlugin(ScrollTrigger);
+window.addEventListener("load", () => {
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".wrapper",
+        start: "top top",
+        end: "+=150%",
+        pin: true,
+        scrub: true,
+        markers: true
+      }
+    })
+    .to("img", {
+      scale: 2,
+      z: 350,
+      transformOrigin: "center center",
+      ease: "power1.inOut"
+    })
+    .to(
+      ".section.hero",
+      {
+        scale: 1.1,
+        transformOrigin: "center center",
+        ease: "power1.inOut"
+      },
+      "<"
+    );
+});
+</script>
+</body>
+</html>

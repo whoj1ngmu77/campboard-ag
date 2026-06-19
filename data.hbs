@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Entry</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <h1>Welcome, {{user.name}}</h1>
+      <div class="user-info">
+        <a href="/data" class="btn">Refresh</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+
+    {{#if error}}
+      <div class="alert">{{error}}</div>
+    {{/if}}
+
+    <div class="content">
+      <form action="/data" method="POST">
+        <!-- Example snippet for data.hbs -->
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="number" name1="age" placeholder="Age" required>
+  <input type="text" name2="mobileNumber" placeholder="Mobile Number" required>
+  <input type="email" name="emailId" placeholder="Email ID" required>
+  <input type="text" name="adharNumber" placeholder="Adhar Number" required>
+  <input type="text" name="address" placeholder="Address" required>
+  <input type="text" name="fathersName" placeholder="Father's Name" required>
+  <input type="text" name="mothersName" placeholder="Mother's Name" required>
+  <input type="text" name="fatherMobileNumber" placeholder="Father Mobile Number" required>
+  <input type="email" name="fatherEmail" placeholder="Father Email" required>
+  <input type="text" name="motherMobileNumber" placeholder="Mother Mobile Number" required>
+  <input type="email" name="motherEmail" placeholder="Mother Email" required>
+  <input type="text" name="boardOfEducation" placeholder="Board of Education" required>
+  <input type="number" step="0.01" name="seniorSecondaryPercentage" placeholder="Senior Secondary %" required>
+  <input type="number" step="0.01" name="secondaryPercentage" placeholder="Secondary %" required>
+  <input type="text" name="subjects" placeholder="Subjects (comma separated)" required>
+
+        <button type="submit" class="btn">Save</button>
+      </form>
+<!--
+      {{#if dataEntries}}
+        <div class="entries">
+          {{#each dataEntries}}
+            <p>Entries successfully stored</p>
+          {{/each}}
+        </div>
+      {{else}}
+        <p>No entries found.</p>
+      {{/if}}-->
+    </div>
+  </div>
+</body>
+</html>

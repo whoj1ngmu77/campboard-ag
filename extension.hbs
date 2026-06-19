@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Data</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+    }
+    .navbar h1 {
+      margin: 0;
+    }
+    .user-info a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    .logout-btn {
+      background-color: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .content {
+      margin-top: 20px;
+    }
+    .alert {
+      color: red;
+      margin-bottom: 20px;
+    }
+    .entries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .entry-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 5px;
+      width: calc(33.333% - 40px);
+    }
+    .entry-card h3 {
+      margin-top: 0;
+    }
+    .empty-state {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .empty-state p {
+      font-size: 18px;
+      color: #666;
+    }
+    .empty-state a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .empty-state a:hover {
+      background-color: #0056b3;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .entry-card button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .entry-card button:hover {
+      background-color: #218838;
+    }
+    .entry-card small {
+      display: block;
+      margin-top: 10px;
+      color: #666;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+    h3 {
+      margin-top: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 10px 0;
+    }
+    ul li a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    ul li a:hover {
+      text-decoration: underline;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    td a:hover {
+      text-decoration: underline;
+    } 
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <h1>Welcome, {{user.name}}</h1>
+      <div class="user-info">
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+
+    {{#if error}}
+      <div class="alert">{{error}}</div>
+    {{/if}}
+
+    <div class="content">
+      <h2>Your Stored Information</h2>
+      
+      {{#if dataEntries}}
+        <div class="entries">
+          {{#each dataEntries}}
+            <div class="entry-card">
+              <h3>{{this.name}}</h3>
+              <button onclick="copyDataAsLinesName('{{this.name}}')">Copy Name</button>
+              <p>Mobile: {{this.mobileNumber}}</p>
+              <button onclick="copyDataAsLinesMobile('{{this.mobileNumber}}')">Copy Mobile</button>
+              <p>Address: {{this.address}}</p>
+              <button onclick="copyDataAsLinesAdd('{{this.address}}')">Copy Address</button>
+              <p>Education: {{this.boardOfEducation}}</p>
+              <button onclick="copyDataAsLinesED('{{this.boardOfEducation}}')">Copy Education</button>
+              <p>Aadhar Number: {{this.adharNumber}}</p>
+              <button onclick="copyDataAsLinesAdhar('{{this.adharNumber}}')">Copy Aadhar</button>
+              <small>Created: {{this.createdAt}}</small>
+            </div>
+          {{/each}}
+        </div>
+      {{else}}
+        <div class="empty-state">
+          <p>No entries found.</p>
+          <a href="/data" class="btn">Add Your First Entry</a>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+<h3>Open in Split Screen:</h3>
+<ul>
+  <li><a href="#" onclick="openSplitScreen('https://www.example.com')">Example.com</a></li>
+  <li><a href="#" onclick="openSplitScreen('https://www.wikipedia.org')">Wikipedia</a></li>
+  <li><a href="#" onclick="openSplitScreen('https://www.google.com')">Google</a></li>
+  <!-- Add more links as needed -->
+</ul>
+<table>
+  <tr>
+    <th>College Name</th>
+    <th colspan="2">Admission Process</th>
+    <th colspan="2">Examination Process</th>
+    <th>Result</th>
+    <th>Link</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>Example College</td>
+    <td>01 Jan 2024</td>
+    <td>31 Jan 2024</td>
+    <td>01 Feb 2024</td>
+    <td>28 Feb 2024</td>
+    <td>Pass</td>
+    <td><a href="#" onclick="openSplitScreen('https://www.google.com')">Google</a></td>
+  </tr>
+</table>
+
+  <script>
+    const User = require('../models/user');
+    const bcrypt = require('bcrypt');
+
+    async function signup(req, res) {
+      const { name, email, password } = req.body;
+      try {
+        let user = await User.findOne({ email: email.trim() });
+        if (user) {
+          return res.render('signup', { message: 'Email already registered' });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user = await User.create({ name, email: email.trim(), password: hashedPassword });
+        req.session.user = { id: user._id, name: user.name, email: user.email };
+        return res.redirect('/data');
+      } catch (err) {
+        return res.render('signup', { message: 'Signup failed' });
+      }
+    }
+
+    async function login(req, res) {
+      const { email, password } = req.body;
+      try {
+        const user = await User.findOne({ email: email.trim() });
+        if (!user) {
+          return res.render('login', { message: 'User not found. Please check your email or sign up.' });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+          return res.render('login', { message: 'Invalid password.' });
+        }
+        req.session.user = { id: user._id, name: user.name, email: user.email };
+        return res.redirect('/extension');
+      } catch (err) {
+        return res.render('login', { message: 'Login failed.' });
+      }
+    }
+
+    module.exports = { signup, login /*, ...other exports... */ };
+  </script>
+  <script>
+function copyDataAsLinesName(data) {
+  navigator.clipboard.writeText(data);
+}
+function copyDataAsLinesMobile(data) {
+  navigator.clipboard.writeText(data);
+}
+function copyDataAsLinesAdd(data) {
+  navigator.clipboard.writeText(data);
+}
+function copyDataAsLinesED(data) {
+  navigator.clipboard.writeText(data);
+}
+function copyDataAsLinesAdhar(data) {
+  navigator.clipboard.writeText(data);
+}
+</script><script>
+function openSplitScreen(targetUrl) {
+    // Get available screen width and height
+    const screenWidth = window.screen.availWidth;
+    const screenHeight = window.screen.availHeight;
+    const width = Math.floor(screenWidth / 2);
+    const height = screenHeight;
+
+    // Open (or reuse) your site on the left half
+    const mySite = window.open(window.location.href, 'mySiteWindow',
+        `width=${width},height=${height},left=0,top=0`);
+
+    // Open the target site on the right half
+    const targetSite = window.open(targetUrl, 'targetSiteWindow',
+        `width=${width},height=${height},left=${width},top=0`);
+
+    // Focus the target site window
+    if (targetSite) targetSite.focus();
+
+    // Prevent default link behavior
+    return false;
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <h1>Welcome to our website</h1>
+      <div class="user-info">
+        <span>Welcome, {{user.name}}</span>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+    
+    <div class="content">
+      <h2>Dashboard</h2>
+      <p>You've successfully logged in!</p>
+      <p>This is your protected home page.</p>
+
+      <!-- Change the content section -->
+<div class="content">
+  <h2>Dashboard</h2>
+  <a href="/data" class="btn">Go to Data Entry</a>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>
