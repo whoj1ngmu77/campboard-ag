@@ -1,6 +1,6 @@
 // src/controllers/authController.js
 
-const User = require('../models/user');
+const User = require('./user');
 const bcrypt = require('bcrypt');
 
 // SIGNUP FUNCTION
@@ -40,7 +40,7 @@ async function login(req, res) {
     // Set session
     req.session.user = { id: user._id, email: user.email, name: user.name };
     // Redirect to extension page after login
-    return res.redirect('/extension');
+    return res.redirect('/data');
   } catch (err) {
     console.error('Login error:', err);
     return res.render('login', { message: 'Login failed.' });

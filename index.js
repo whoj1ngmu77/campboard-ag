@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
-const Data = require('../models/data');
-const User = require('../models/user');
+const authController = require('./authController');
+const Data = require('./data');
+const User = require('./user');
 
 // Middleware to check if user is logged in
 const isAuthenticated = (req, res, next) => {
@@ -94,16 +94,18 @@ router.post('/data', isAuthenticated, async (req, res) => {
 // Show all data entries for the user (after login)
 router.get('/extension', isAuthenticated, async (req, res) => {
   try {
-    const dataEntries = await Data.find({ user: req.session.user.id });
+    const mongoose = require('mongoose');
+    const dataEntries = await Data.find({ user: new mongoose.Types.ObjectId(req.session.user.id) }).lean();
     res.render('extension', {
       user: req.session.user,
-      dataEntries,
+      dataEntriesJSON: JSON.stringify(dataEntries),
       error: null
     });
   } catch (error) {
+    console.error('Extension error:', error);
     res.render('extension', {
       user: req.session.user,
-      dataEntries: [],
+      dataEntriesJSON: '[]',
       error: 'Failed to load data'
     });
   }
@@ -111,6 +113,6 @@ router.get('/extension', isAuthenticated, async (req, res) => {
 
 module.exports = router;
 router.get('/debug-users', async (req, res) => {
-  const users = await require('../models/user').find({});
+  const users = await require('./user').find({});
   res.json(users);
 });

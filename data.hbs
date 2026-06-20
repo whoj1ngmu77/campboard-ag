@@ -3,55 +3,277 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Entry</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>Your Info — CAMPUShelp</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #080d13;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(20,20,20,0.8);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,255,252,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav h1 {
+      color: #00fffc;
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px #00fffc66;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #00fffc;
+      color: #00fffc;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,255,252,0.1);
+    }
+
+    .btn-danger {
+      border: 1.5px solid #ff6b6b;
+      color: #ff6b6b;
+      background: transparent;
+    }
+
+    .btn-danger:hover {
+      background: rgba(255,107,107,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background: rgba(20,20,20,0.75);
+      border: 1.5px solid rgba(0,255,252,0.18);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0,255,252,0.08);
+    }
+
+    .card h2 {
+      color: #00fffc;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px #00fffc66;
+    }
+
+    .alert {
+      background: rgba(255,80,80,0.15);
+      border: 1px solid rgba(255,80,80,0.4);
+      color: #ff6b6b;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input {
+      padding: 0.7rem 1rem;
+      background: rgba(0,0,0,0.35);
+      border: 1.5px solid rgba(0,255,252,0.2);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      border-color: #00fffc;
+      box-shadow: 0 0 8px #00fffc44;
+    }
+
+    input::placeholder { color: #555; }
+
+    .section-label {
+      grid-column: 1 / -1;
+      color: #00fffc99;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid rgba(0,255,252,0.15);
+      padding-bottom: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn {
+      grid-column: 1 / -1;
+      padding: 0.9rem;
+      margin-top: 0.5rem;
+      background: linear-gradient(90deg, #00fffc, #26d0ce);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #00fffc44;
+      transition: opacity 0.2s, box-shadow 0.2s;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.9;
+      box-shadow: 0 4px 20px #00fffc88;
+    }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .submit-btn { grid-column: 1; }
+      .section-label { grid-column: 1; }
+    }
+  </style>
 </head>
 <body>
+  <nav>
+    <h1>Welcome, {{user.name}}</h1>
+    <div class="nav-links">
+      <a href="/data" class="btn btn-outline">Refresh</a>
+      <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+  </nav>
+
   <div class="container">
-    <nav class="navbar">
-      <h1>Welcome, {{user.name}}</h1>
-      <div class="user-info">
-        <a href="/data" class="btn">Refresh</a>
-        <a href="/logout" class="logout-btn">Logout</a>
-      </div>
-    </nav>
+    <div class="card">
+      <h2>Enter Your Information</h2>
 
-    {{#if error}}
+      {{#if error}}
       <div class="alert">{{error}}</div>
-    {{/if}}
+      {{/if}}
 
-    <div class="content">
       <form action="/data" method="POST">
-        <!-- Example snippet for data.hbs -->
-  <input type="text" name="name" placeholder="Name" required>
-  <input type="number" name1="age" placeholder="Age" required>
-  <input type="text" name2="mobileNumber" placeholder="Mobile Number" required>
-  <input type="email" name="emailId" placeholder="Email ID" required>
-  <input type="text" name="adharNumber" placeholder="Adhar Number" required>
-  <input type="text" name="address" placeholder="Address" required>
-  <input type="text" name="fathersName" placeholder="Father's Name" required>
-  <input type="text" name="mothersName" placeholder="Mother's Name" required>
-  <input type="text" name="fatherMobileNumber" placeholder="Father Mobile Number" required>
-  <input type="email" name="fatherEmail" placeholder="Father Email" required>
-  <input type="text" name="motherMobileNumber" placeholder="Mother Mobile Number" required>
-  <input type="email" name="motherEmail" placeholder="Mother Email" required>
-  <input type="text" name="boardOfEducation" placeholder="Board of Education" required>
-  <input type="number" step="0.01" name="seniorSecondaryPercentage" placeholder="Senior Secondary %" required>
-  <input type="number" step="0.01" name="secondaryPercentage" placeholder="Secondary %" required>
-  <input type="text" name="subjects" placeholder="Subjects (comma separated)" required>
+        <div class="grid">
+          <p class="section-label">Personal Details</p>
 
-        <button type="submit" class="btn">Save</button>
-      </form>
-<!--
-      {{#if dataEntries}}
-        <div class="entries">
-          {{#each dataEntries}}
-            <p>Entries successfully stored</p>
-          {{/each}}
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label>Age</label>
+            <input type="number" name="age" placeholder="Your age" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="text" name="mobileNumber" placeholder="10-digit number" required>
+          </div>
+          <div class="form-group">
+            <label>Email ID</label>
+            <input type="email" name="emailId" placeholder="you@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Aadhar Number</label>
+            <input type="text" name="adharNumber" placeholder="12-digit Aadhar" required>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="address" placeholder="Your address" required>
+          </div>
+
+          <p class="section-label">Parent Details</p>
+
+          <div class="form-group">
+            <label>Father's Name</label>
+            <input type="text" name="fathersName" placeholder="Father's full name" required>
+          </div>
+          <div class="form-group">
+            <label>Mother's Name</label>
+            <input type="text" name="mothersName" placeholder="Mother's full name" required>
+          </div>
+          <div class="form-group">
+            <label>Father's Mobile</label>
+            <input type="text" name="fatherMobileNumber" placeholder="Father's number" required>
+          </div>
+          <div class="form-group">
+            <label>Father's Email</label>
+            <input type="email" name="fatherEmail" placeholder="Father's email" required>
+          </div>
+          <div class="form-group">
+            <label>Mother's Mobile</label>
+            <input type="text" name="motherMobileNumber" placeholder="Mother's number" required>
+          </div>
+          <div class="form-group">
+            <label>Mother's Email</label>
+            <input type="email" name="motherEmail" placeholder="Mother's email" required>
+          </div>
+
+          <p class="section-label">Academic Details</p>
+
+          <div class="form-group">
+            <label>Board of Education</label>
+            <input type="text" name="boardOfEducation" placeholder="e.g. CBSE, ICSE" required>
+          </div>
+          <div class="form-group">
+            <label>Senior Secondary %</label>
+            <input type="number" step="0.01" name="seniorSecondaryPercentage" placeholder="e.g. 92.5" required>
+          </div>
+          <div class="form-group">
+            <label>Secondary %</label>
+            <input type="number" step="0.01" name="secondaryPercentage" placeholder="e.g. 88.0" required>
+          </div>
+          <div class="form-group">
+            <label>Subjects</label>
+            <input type="text" name="subjects" placeholder="Math, Physics, Chemistry" required>
+          </div>
+
+          <button type="submit" class="submit-btn">Save Information</button>
         </div>
-      {{else}}
-        <p>No entries found.</p>
-      {{/if}}-->
+      </form>
     </div>
   </div>
 </body>

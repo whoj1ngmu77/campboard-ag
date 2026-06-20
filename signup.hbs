@@ -3,27 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
-  <!--
-  <link rel="stylesheet" href="/css/style.css">-->
+  <title>Sign Up — CAMPUShelp</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #080d13;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: rgba(20, 20, 20, 0.75);
+      border: 1.5px solid rgba(0,255,252,0.18);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 32px rgba(0,255,252,0.1);
+    }
+
+    h2 {
+      color: #00fffc;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 0 12px #00fffc88;
+    }
+
+    .alert {
+      background: rgba(255,80,80,0.15);
+      border: 1px solid rgba(255,80,80,0.4);
+      color: #ff6b6b;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 0.4rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(0,0,0,0.35);
+      border: 1.5px solid rgba(0,255,252,0.25);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      border-color: #00fffc;
+      box-shadow: 0 0 8px #00fffc55;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.85rem;
+      margin-top: 0.5rem;
+      background: linear-gradient(90deg, #00fffc, #26d0ce);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px #00fffc44;
+    }
+
+    button[type="submit"]:hover {
+      opacity: 0.9;
+      box-shadow: 0 4px 20px #00fffc88;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 1.2rem;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .form-footer a {
+      color: #00fffc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Sign Up</h2>
-    
+  <div class="card">
+    <h2>Create Account</h2>
+
     {{#if message}}
     <div class="alert">{{message}}</div>
     {{/if}}
-    
-    <form action="/signup" method="post">
-  <input type="text" name="name" required>
-  <input type="email" name="email" required>
-  <input type="password" name="password" required>
 
-      
+    <form action="/signup" method="post">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min 6 characters" required>
+      </div>
       <button type="submit">Sign Up</button>
     </form>
-    
+
     <div class="form-footer">
       Already have an account? <a href="/login">Login</a>
     </div>
