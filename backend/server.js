@@ -20,10 +20,10 @@ app.engine('hbs', engine({
 }));
 
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, '/'));
+app.set('views', path.join(__dirname, '../frontend'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../frontend/public')));
 app.use(session({
   secret: process.env.SECRET_KEY || 'campboard_secret',
   resave: false,
